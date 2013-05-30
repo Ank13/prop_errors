@@ -18,11 +18,12 @@ post '/events/create' do
   @email = params[:email]
   @name = params[:name]
   if params[:date] != ""
-    date = Date.strptime(params[:date], "%Y-%m-%d")
+    @date = params[:date]
+    formatted_date = Date.strptime(@date, "%Y-%m-%d")
     @event = Event.new(title: @title, 
                        organizer_name: @name, 
                        organizer_email: @email,
-                       date: date)
+                       date: formatted_date)
     if @event.save
       redirect '/'
     else
